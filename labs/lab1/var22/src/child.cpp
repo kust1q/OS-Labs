@@ -31,8 +31,6 @@ namespace child {
             file.flush(); 
             std::cout << "Child[" << pid << "]: строка " << inv << " записана в файл " << filename << "." << std::endl;
         }
-
-        std::cout << "Child[" << pid << "]: процесс завершен." << std::endl;
     }
 
     Child::~Child() {

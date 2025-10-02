@@ -1,9 +1,10 @@
 #include "../include/parent.h"
+#include <unistd.h>
 
 namespace parent {
     void Parent::CreateChildProcesses(std::string filename1, std::string filename2) {
         if (pipe(pipe1) == -1 || pipe(pipe2) == -1) {
-            std::cout << "Parent: Не удалось создать пайпы" << std::endl;
+            std::cout << "Parent[" << getpid() << "]: Не удалось создать пайпы" << std::endl;
             exit(1);
         }
 
@@ -13,7 +14,7 @@ namespace parent {
             dup2(pipe1[0], STDIN_FILENO);
             close(pipe1[0]);
             execl("./child", "child1", NULL);
-            std::cout << "Parent: Не удалось запустить первый дочерний процесс." << std::endl; 
+            std::cout << "Parent[" << getpid() << "]: Не удалось запустить первый дочерний процесс." << std::endl; 
             exit(1);
         }
         std::cout << "Child[" << child1 << "]: процесс создан." << std::endl;
@@ -23,7 +24,7 @@ namespace parent {
             dup2(pipe2[0], STDIN_FILENO);
             close(pipe2[0]);
             execl("./child", "child2", NULL);
-            std::cout << "Parent: Не удалось запустить второй дочерний процесс." << std::endl; 
+            std::cout << "Parent[" << getpid() << "]: Не удалось запустить второй дочерний процесс." << std::endl; 
             exit(1);
         }
         std::cout << "Child[" << child2 << "]: процесс создан." << std::endl;
@@ -41,6 +42,10 @@ namespace parent {
         std::string input;
         while (std::getline(std::cin, input)) {
             if (input.empty()) {continue;}
+            if (input == "exit" || input == "quit") {
+                std::cout << "Parent[" << getpid() << "]: получена команда выхода из программы." << std::endl;
+                break;
+            }
             input += "\n";
             if (rd() % 100 < 80) {
                 write(pipe1[1], input.c_str(), input.length());
@@ -50,11 +55,17 @@ namespace parent {
         }
     } 
 
-    void Parent::WaitForChildren() {
-        close(pipe1[1]);
-        close(pipe2[1]);
-        waitpid(child1, nullptr, 0);
-        waitpid(child2, nullptr, 0);
+    void Parent::EndChildren() {
+        if (child1 > 0) {
+            kill(child1, SIGTERM);
+            waitpid(child1, nullptr, 0);
+            std::cout << "Child[" << child1 << "]: процесс завершен." << std::endl;
+        }
+        if (child2 > 0) {
+            kill(child2, SIGTERM);
+            waitpid(child2, nullptr, 0);
+            std::cout << "Child[" << child2 << "]: процесс завершен." << std::endl;
+        }
     }
 
     Parent::~Parent() {

@@ -18,7 +18,7 @@ namespace parent {
         Parent() = default;
         void CreateChildProcesses(std::string filename1, std::string filename2);
         void Work();
-        void WaitForChildren();
+        void EndChildren();
         ~Parent();
     };
 }
