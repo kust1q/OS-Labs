@@ -1,0 +1,20 @@
+{
+    "name": "OOP-Labs",
+    "dockerFile": "Dockerfile",
+    "context": "..",
+    "appPort": [],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "vscode.cpptools-extension-pack",
+                "ms-vscode.cmake-tools",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "CS128.cs128-clang-tidy"
+            ]
+        }
+    }
+}
