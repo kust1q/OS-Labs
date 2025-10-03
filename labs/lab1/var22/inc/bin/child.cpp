@@ -1,4 +1,4 @@
-#include "include/child.h"
+#include "child.h"
 
 int main() {
     std::string filename;

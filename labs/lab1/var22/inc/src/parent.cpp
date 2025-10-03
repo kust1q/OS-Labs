@@ -1,5 +1,4 @@
-#include "../include/parent.h"
-#include <unistd.h>
+#include "parent.h"
 
 namespace parent {
     void Parent::CreateChildProcesses(std::string filename1, std::string filename2) {
