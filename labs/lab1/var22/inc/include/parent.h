@@ -1,10 +1,9 @@
 #pragma once
 
-#include <cstddef>
 #include <iostream>
 #include <random>
-#include <unistd.h>
-#include <sys/wait.h>
+
+#include "os.h"
 
 namespace parent {
     class Parent {

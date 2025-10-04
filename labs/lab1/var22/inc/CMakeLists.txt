@@ -9,9 +9,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=maybe-uninitialized")
 
 add_library(child_lib src/child.cpp)
 add_library(parent_lib src/parent.cpp)
+add_library(os_lib src/os.cpp)
+
+target_link_libraries(parent_lib PUBLIC os_lib)
 
 target_include_directories(child_lib PUBLIC include)
 target_include_directories(parent_lib PUBLIC include)
+target_include_directories(os_lib PUBLIC include)
 
 add_executable(child bin/child.cpp)
 target_link_libraries(child child_lib)

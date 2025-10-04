@@ -28,7 +28,6 @@ namespace child {
             std::reverse(inv.begin(), inv.end());
             std::cout << "Child[" << pid << "]: строка " << line << " инвертирована." << std::endl;
             file << inv << std::endl;
-            file.flush(); 
             std::cout << "Child[" << pid << "]: строка " << inv << " записана в файл " << filename << "." << std::endl;
         }
     }
