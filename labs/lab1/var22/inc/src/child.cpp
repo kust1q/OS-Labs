@@ -9,6 +9,7 @@ namespace child {
         file.open(filename, std::ios::app);
         if (!file.is_open()) {
             std::cout << "Child[" << pid << "]: не удалось открыть файл " << filename << ". Процесс завершен.\n";
+            os::Exit(1);
         }
         std::cout << "Child[" << pid << "]: файл " << filename << " открыт." << std::endl;
     }
@@ -16,6 +17,7 @@ namespace child {
     void Child::Work() {
         if (!file.is_open()) {
             std::cout << "Child[" << pid << "]: файл не открыт! Работа невозможна." << std::endl;
+            os::Exit(1);
         }
         std::string line;
         std::string inv;
