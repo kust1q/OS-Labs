@@ -73,9 +73,7 @@ namespace parent {
     }
 
     Parent::~Parent() {
-        os::CloseFd(pipe1[0]); 
         os::CloseFd(pipe1[1]);
-        os::CloseFd(pipe2[0]); 
         os::CloseFd(pipe2[1]);
     }
 }

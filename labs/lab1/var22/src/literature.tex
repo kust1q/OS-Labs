@@ -3,17 +3,149 @@
 Сюда вставляем ваш код (весь)
 
 \begin{center}
-\lstinputlisting[language=C++,caption=*Сюда описание*,captionpos=b]{inc/main.cpp}
+\lstinputlisting[language=C++,caption=exceptions.h,captionpos=b]{inc/include/exceptions.h}
 \end{center}
 
-А таким образом можно вставлять "сырой" код в виде текста
-\begin{lstlisting}[language=C++]
-#include <iostream>
+\begin{center}
+\lstinputlisting[language=C++,caption=os.h,captionpos=b]{inc/include/os.h}
+\end{center}
 
-int main() {
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
-}
-\end{lstlisting}
+\begin{center}
+\lstinputlisting[language=C++,caption=os.cpp,captionpos=b]{inc/src/os.cpp}
+\end{center}
 
-Также сюда необходимо будет вставить strace (утилита, которая будет выводить системные вызовы вашей программы)
+\begin{center}
+\lstinputlisting[language=C++,caption=child.h,captionpos=b]{inc/include/child.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=child.cpp,captionpos=b]{inc/src/child.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=bin/child.cpp,captionpos=b]{inc/bin/child.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=parent.h,captionpos=b]{inc/include/parent.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=parent.cpp,captionpos=b]{inc/src/parent.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=main.cpp,captionpos=b]{inc/main.cpp}
+\end{center}
+
+\section{Strace}
+\begin{breakableverbatim}
+execve("./main", ["./main"], 0x7ffcc7ee6370 /* 77 vars */) = 0
+brk(NULL)                               = 0x648e5f87f000
+mmap(NULL, 8192, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_ANONYMOUS, -1, 0) = 0x7cf6f04ac000
+access("/etc/ld.so.preload", R\_OK)      = -1 ENOENT (Нет такого файла или каталога)
+openat(AT\_FDCWD, "/etc/ld.so.cache", O\_RDONLY|O\_CLOEXEC) = 3
+fstat(3, {st\_mode=S\_IFREG|0644, st\_size=74431, ...}) = 0
+mmap(NULL, 74431, PROT\_READ, MAP\_PRIVATE, 3, 0) = 0x7cf6f0499000
+close(3)                                = 0
+openat(AT\_FDCWD, "/lib/x86\_64-linux-gnu/libstdc++.so.6", O\_RDONLY|O\_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st\_mode=S\_IFREG|0644, st\_size=2592224, ...}) = 0
+mmap(NULL, 2609472, PROT\_READ, MAP\_PRIVATE|MAP\_DENYWRITE, 3, 0) = 0x7cf6f0200000
+mmap(0x7cf6f029d000, 1343488, PROT\_READ|PROT\_EXEC, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x9d000) = 0x7cf6f029d000
+mmap(0x7cf6f03e5000, 552960, PROT\_READ, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x1e5000) = 0x7cf6f03e5000
+mmap(0x7cf6f046c000, 57344, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x26b000) = 0x7cf6f046c000
+mmap(0x7cf6f047a000, 12608, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_ANONYMOUS, -1, 0) = 0x7cf6f047a000
+close(3)                                = 0
+openat(AT\_FDCWD, "/lib/x86\_64-linux-gnu/libgcc\_s.so.1", O\_RDONLY|O\_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st\_mode=S\_IFREG|0644, st\_size=183024, ...}) = 0
+mmap(NULL, 185256, PROT\_READ, MAP\_PRIVATE|MAP\_DENYWRITE, 3, 0) = 0x7cf6f01d2000
+mmap(0x7cf6f01d6000, 147456, PROT\_READ|PROT\_EXEC, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x4000) = 0x7cf6f01d6000
+mmap(0x7cf6f01fa000, 16384, PROT\_READ, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x28000) = 0x7cf6f01fa000
+mmap(0x7cf6f01fe000, 8192, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x2b000) = 0x7cf6f01fe000
+close(3)                                = 0
+openat(AT\_FDCWD, "/lib/x86\_64-linux-gnu/libc.so.6", O\_RDONLY|O\_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+fstat(3, {st\_mode=S\_IFREG|0755, st\_size=2125328, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2170256, PROT\_READ, MAP\_PRIVATE|MAP\_DENYWRITE, 3, 0) = 0x7cf6efe00000
+mmap(0x7cf6efe28000, 1605632, PROT\_READ|PROT\_EXEC, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x28000) = 0x7cf6efe28000
+mmap(0x7cf6effb0000, 323584, PROT\_READ, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x1b0000) = 0x7cf6effb0000
+mmap(0x7cf6effff000, 24576, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x1fe000) = 0x7cf6effff000
+mmap(0x7cf6f0005000, 52624, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_ANONYMOUS, -1, 0) = 0x7cf6f0005000
+close(3)                                = 0
+openat(AT\_FDCWD, "/lib/x86\_64-linux-gnu/libm.so.6", O\_RDONLY|O\_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st\_mode=S\_IFREG|0644, st\_size=952616, ...}) = 0
+mmap(NULL, 950296, PROT\_READ, MAP\_PRIVATE|MAP\_DENYWRITE, 3, 0) = 0x7cf6f00e9000
+mmap(0x7cf6f00f9000, 520192, PROT\_READ|PROT\_EXEC, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x10000) = 0x7cf6f00f9000
+mmap(0x7cf6f0178000, 360448, PROT\_READ, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0x8f000) = 0x7cf6f0178000
+mmap(0x7cf6f01d0000, 8192, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_FIXED|MAP\_DENYWRITE, 3, 0xe7000) = 0x7cf6f01d0000
+close(3)                                = 0
+mmap(NULL, 8192, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_ANONYMOUS, -1, 0) = 0x7cf6f0497000
+mmap(NULL, 12288, PROT\_READ|PROT\_WRITE, MAP\_PRIVATE|MAP\_ANONYMOUS, -1, 0) = 0x7cf6f0494000
+arch\_prctl(ARCH\_SET\_FS, 0x7cf6f0494740) = 0
+set\_tid\_address(0x7cf6f0494a10)         = 83586
+set\_robust\_list(0x7cf6f0494a20, 24)     = 0
+rseq(0x7cf6f0495060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7cf6effff000, 16384, PROT\_READ) = 0
+mprotect(0x7cf6f01d0000, 4096, PROT\_READ) = 0
+mprotect(0x7cf6f01fe000, 4096, PROT\_READ) = 0
+mprotect(0x7cf6f046c000, 45056, PROT\_READ) = 0
+mprotect(0x648e358e5000, 4096, PROT\_READ) = 0
+mprotect(0x7cf6f04ea000, 8192, PROT\_READ) = 0
+prlimit64(0, RLIMIT\_STACK, NULL, {rlim\_cur=8192*1024, rlim\_max=RLIM64\_INFINITY}) = 0
+munmap(0x7cf6f0499000, 74431)           = 0
+futex(0x7cf6f047a7bc, FUTEX\_WAKE\_PRIVATE, 2147483647) = 0
+getrandom("\xaf\x82\x50\x7f\xa7\x7d\xcc\x69", 8, GRND\_NONBLOCK) = 8
+brk(NULL)                               = 0x648e5f87f000
+brk(0x648e5f8a0000)                     = 0x648e5f8a0000
+fstat(1, {st\_mode=S\_IFCHR|0620, st\_rdev=makedev(0x88, 0), ...}) = 0
+getpid()                                = 83586
+write(1, "Parent[83586]: Enter filename fo"..., 41) = 41
+fstat(0, {st\_mode=S\_IFCHR|0620, st\_rdev=makedev(0x88, 0), ...}) = 0
+read(0, "1.txt\n", 1024)                = 6
+getpid()                                = 83586
+write(1, "Parent[83586]: Enter filename fo"..., 41) = 41
+read(0, "2.txt\n", 1024)                = 6
+pipe2([3, 4], 0)                        = 0
+pipe2([5, 6], 0)                        = 0
+clone(child\_stack=NULL, flags=CLONE\_CHILD\_CLEARTID|CLONE\_CHILD\_SETTID|SIGCHLD, child\_tidptr=0x7cf6f0494a10) = 83626
+write(1, "Child1[83626]: process was creat"..., 36) = 36
+clone(child\_stack=NULL, flags=CLONE\_CHILD\_CLEARTID|CLONE\_CHILD\_SETTID|SIGCHLD, child\_tidptr=0x7cf6f0494a10) = 83627
+write(1, "Child2[83627]: process was creat"..., 36) = 36
+clock\_nanosleep(CLOCK\_REALTIME, 0, {tv\_sec=1, tv\_nsec=0}, 0x7ffed5c98950) = 0
+close(3)                                = 0
+close(5)                                = 0
+write(4, "1.txt\n", 6)                  = 6
+write(6, "2.txt\n", 6)                  = 6
+wait4(83626, NULL, WNOHANG, NULL)       = 0
+wait4(83627, NULL, WNOHANG, NULL)       = 0
+read(0, "abcdef\n", 1024)               = 7
+wait4(83626, NULL, WNOHANG, NULL)       = 0
+wait4(83627, NULL, WNOHANG, NULL)       = 0
+write(4, "abcdef\n", 7)                 = 7
+read(0, "12345\n", 1024)                = 6
+wait4(83626, NULL, WNOHANG, NULL)       = 0
+wait4(83627, NULL, WNOHANG, NULL)       = 0
+write(4, "12345\n", 6)                  = 6
+read(0, "0000000\n", 1024)              = 8
+wait4(83626, NULL, WNOHANG, NULL)       = 0
+wait4(83627, NULL, WNOHANG, NULL)       = 0
+write(6, "0000000\n", 8)                = 8
+read(0, "exit\n", 1024)                 = 5
+getpid()                                = 83586
+write(1, "Parent[83586]: termination comma"..., 49) = 49
+kill(83626, SIGTERM)                    = 0
+write(1, "Child[83626]: process was termin"..., 38) = 38
+kill(83627, SIGTERM)                    = 0
+write(1, "Child[83627]: process was termin"..., 38) = 38
+--- SIGCHLD {si\_signo=SIGCHLD, si\_code=CLD\_KILLED, si\_pid=83626, si\_uid=1000, si\_status=SIGTERM, si\_utime=0, si\_stime=0} ---
+close(4)                                = 0
+close(6)                                = 0
+--- SIGCHLD {si\_signo=SIGCHLD, si\_code=CLD\_KILLED, si\_pid=83627, si\_uid=1000, si\_status=SIGTERM, si\_utime=0, si\_stime=0} ---
+exit\_group(0)                           = ?
++++ exited with 0 +++
+\end{breakableverbatim}

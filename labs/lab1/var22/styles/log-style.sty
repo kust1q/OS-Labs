@@ -1,6 +1,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T2B]{fontenc}
 \usepackage[english,russian]{babel}
+\usepackage{dirtree}
 
 \usepackage{geometry}
 \geometry{
@@ -95,3 +96,12 @@
 }
 
 \lstset{escapechar=@,style=customc}
+
+\usepackage{fvextra}
+\usepackage{etoolbox}
+\DefineVerbatimEnvironment{breakableverbatim}{Verbatim}{
+  breaklines=true,
+  breakanywhere=true,
+  fontsize=\small,
+  samepage=false
+}
