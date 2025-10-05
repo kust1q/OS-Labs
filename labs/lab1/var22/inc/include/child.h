@@ -9,6 +9,8 @@
 #include "os.h"
 
 namespace child {
+    inline std::string BASEDIRECTORYFORFILES = "../testfiles/";
+
     class Child {
       private:
         std::string filename;

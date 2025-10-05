@@ -5,13 +5,13 @@ namespace child {
     Child::Child(): Child::Child("") {
     }
 
-    Child::Child(const std::string& filename): pid(os::GetPid()), filename(filename) {
-        file.open(filename, std::ios::app);
+    Child::Child(const std::string& filename): pid(os::GetPid()), filename(BASEDIRECTORYFORFILES + filename) {
+        file.open(Child::filename, std::ios::app);
         if (!file.is_open()) {
-            std::cout << "Child[" << pid << "]: не удалось открыть файл " << filename << ". Процесс завершен.\n";
+            std::cout << "Child[" << pid << "]: не удалось открыть файл " << Child::filename << ". Процесс завершен.\n";
             os::Exit(1);
         }
-        std::cout << "Child[" << pid << "]: файл " << filename << " открыт." << std::endl;
+        std::cout << "Child[" << pid << "]: файл " << Child::filename << " открыт." << std::endl;
     }
 
     void Child::Work() {
