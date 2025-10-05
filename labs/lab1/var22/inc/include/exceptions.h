@@ -11,7 +11,7 @@ namespace exceptions {
             return error_message_.data();
         }
     private:
-        std::string_view error_message_;
+        std::string error_message_;
     };
 
     class ChildProcessEndException: std::exception {
@@ -21,6 +21,6 @@ namespace exceptions {
             return error_message_.data();
         }
     private:
-        std::string_view error_message_;
+        std::string error_message_;
     };
 }
