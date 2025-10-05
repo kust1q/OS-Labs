@@ -15,7 +15,7 @@ namespace parent {
             os::Exec("./child", "child1");
             os::Exit(1);
         }
-        std::cout << "Child1[" << child1 << "]: процесс создан." << std::endl;
+        std::cout << "Child1[" << child1 << "]: process was created." << std::endl;
 
         child2 = os::Fork();
         if (child2 == 0) {
@@ -25,7 +25,7 @@ namespace parent {
             os::Exec("./child", "child2");
             os::Exit(1);
         }
-        std::cout << "Child2[" << child2 << "]: процесс создан." << std::endl;
+        std::cout << "Child2[" << child2 << "]: process was created." << std::endl;
 
         os::Sleep(1);
 
@@ -40,7 +40,7 @@ namespace parent {
 
         if (!os::IsAliveProcess(child1) || !os::IsAliveProcess(child2)) {
             Parent::~Parent();
-            throw exceptions::ChildProcessEndException("Child process already end!");
+            throw exceptions::ChildProcessEndException("Child process already terminated!");
         }
     }
 
@@ -48,12 +48,12 @@ namespace parent {
         std::string input;
         while (std::getline(std::cin, input)) {
             if (input == "exit" || input == "quit") {
-                std::cout << "Parent[" << os::GetPid() << "]: получена команда выхода из программы." << std::endl;
+                std::cout << "Parent[" << os::GetPid() << "]: termination command was received." << std::endl;
                 break;
             }
             if (!os::IsAliveProcess(child1) || !os::IsAliveProcess(child2)) {
                 Parent::~Parent();
-                throw exceptions::ChildProcessEndException("Child process already end!");
+                throw exceptions::ChildProcessEndException("Child process already terminated!");
             }
             if (input.empty()) {continue;}
             input += "\n";
@@ -67,9 +67,9 @@ namespace parent {
 
     void Parent::EndChildren() {
         os::KillProcess(child1);
-        std::cout << "Child[" << child1 << "]: процесс завершен." << std::endl;
+        std::cout << "Child[" << child1 << "]: process was terminated." << std::endl;
         os::KillProcess(child2);
-        std::cout << "Child[" << child2 << "]: процесс завершен." << std::endl;
+        std::cout << "Child[" << child2 << "]: process was terminated." << std::endl;
     }
 
     Parent::~Parent() {

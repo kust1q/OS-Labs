@@ -3,9 +3,9 @@
 int main() {
     std::string filename1;
     std::string filename2;
-    std::cout << "Parent[" << os::GetPid() << "]: Введите имя файла для child1" << std::endl;
+    std::cout << "Parent[" << os::GetPid() << "]: Enter filename for child1" << std::endl;
     std::getline(std::cin, filename1);
-    std::cout << "Parent: Введите имя файла для child2" << std::endl;
+    std::cout << "Parent[" << os::GetPid() << "]: Enter filename for child2" << std::endl;
     std::getline(std::cin, filename2);
     parent::Parent p;
     try {
@@ -13,10 +13,10 @@ int main() {
         p.Work();
         p.EndChildren();
     } catch (const exceptions::CreatePipeException&) {
-        std::cout << "Parent[" << os::GetPid() << "]: Не удалось создать пайпы. Завершение программы." << std::endl;
+        std::cout << "Parent[" << os::GetPid() << "]: Failed to create pipe. Ending programm." << std::endl;
         return 1;
     } catch (const exceptions::ChildProcessEndException&) {
-        std::cout << "Parent[" << os::GetPid() << "]: Дочерний процесс завершился с ошибкой. Завершение программы." << std::endl;
+        std::cout << "Parent[" << os::GetPid() << "]: Child process is ended with error. Ending programm." << std::endl;
         return 1;
     }
     return 0;
