@@ -1,15 +1,14 @@
 #include "child.h"
-
+#include "os.h"
 
 namespace child {
     Child::Child(): Child::Child("") {
     }
 
-    Child::Child(const std::string& filename): pid(getpid()), filename(filename) {
+    Child::Child(const std::string& filename): pid(os::GetPid()), filename(filename) {
         file.open(filename, std::ios::app);
         if (!file.is_open()) {
             std::cout << "Child[" << pid << "]: не удалось открыть файл " << filename << ". Процесс завершен.\n";
-            return;
         }
         std::cout << "Child[" << pid << "]: файл " << filename << " открыт." << std::endl;
     }
@@ -17,7 +16,6 @@ namespace child {
     void Child::Work() {
         if (!file.is_open()) {
             std::cout << "Child[" << pid << "]: файл не открыт! Работа невозможна." << std::endl;
-            return;
         }
         std::string line;
         std::string inv;

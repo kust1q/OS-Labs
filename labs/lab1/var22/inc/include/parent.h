@@ -3,6 +3,7 @@
 #include <iostream>
 #include <random>
 
+#include "exceptions.h"
 #include "os.h"
 
 namespace parent {

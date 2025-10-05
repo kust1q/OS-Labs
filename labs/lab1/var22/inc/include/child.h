@@ -6,6 +6,8 @@
 #include <string>
 #include <unistd.h>
 
+#include "os.h"
+
 namespace child {
     class Child {
       private:

@@ -10,7 +10,11 @@ namespace os {
     int Dup2(int fd1, int fd2);
     int CloseFd(int fd);
     int Exec(const char* processPath, const char* processName);
-    pid_t WaitProcess(pid_t pid);
     int KillProcess(pid_t pid);
     ssize_t WriteStr(int fd, const char* buf, size_t bytes);
+    pid_t GetPid();
+    pid_t GetPPid();
+    bool IsAliveProcess(pid_t pid);
+    void Exit(int status);
+    unsigned int Sleep(unsigned int);
 }
