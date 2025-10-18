@@ -1,0 +1,454 @@
+\section{Исходная программа}
+\begin{center}
+\lstinputlisting[language=C++,caption=exceptions.h,captionpos=b]{inc/include/exceptions.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=thread.h,captionpos=b]{inc/include/thread.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=thread.cpp,captionpos=b]{inc/src/thread.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=main.cpp,captionpos=b]{inc/main.cpp}
+\end{center}
+
+\section{Strace}
+Strace при входных данных --- 10000 кластеров, 4 потока, 500 кластеров. 
+\begin{breakableverbatim}
+execve("./main", ["./main", "4"], 0x7ffd413b2088 /* 77 vars */) = 0
+brk(NULL)                               = 0x5b4a7b96c000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79ba83e07000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (Нет такого файла или каталога)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=74871, ...}) = 0
+mmap(NULL, 74871, PROT_READ, MAP_PRIVATE, 3, 0) = 0x79ba83df4000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=2592224, ...}) = 0
+mmap(NULL, 2609472, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79ba83a00000
+mmap(0x79ba83a9d000, 1343488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9d000) = 0x79ba83a9d000
+mmap(0x79ba83be5000, 552960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e5000) = 0x79ba83be5000
+mmap(0x79ba83c6c000, 57344, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26b000) = 0x79ba83c6c000
+mmap(0x79ba83c7a000, 12608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x79ba83c7a000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=952616, ...}) = 0
+mmap(NULL, 950296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79ba83d0b000
+mmap(0x79ba83d1b000, 520192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x10000) = 0x79ba83d1b000
+mmap(0x79ba83d9a000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8f000) = 0x79ba83d9a000
+mmap(0x79ba83df2000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe7000) = 0x79ba83df2000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79ba83cdd000
+mmap(0x79ba83ce1000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x79ba83ce1000
+mmap(0x79ba83d05000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x79ba83d05000
+mmap(0x79ba83d09000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2b000) = 0x79ba83d09000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x79ba83600000
+mmap(0x79ba83628000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x79ba83628000
+mmap(0x79ba837b0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x79ba837b0000
+mmap(0x79ba837ff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x79ba837ff000
+mmap(0x79ba83805000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x79ba83805000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79ba83cdb000
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79ba83cd8000
+arch_prctl(ARCH_SET_FS, 0x79ba83cd8740) = 0
+set_tid_address(0x79ba83cd8a10)         = 214366
+set_robust_list(0x79ba83cd8a20, 24)     = 0
+rseq(0x79ba83cd9060, 0x20, 0, 0x53053053) = 0
+mprotect(0x79ba837ff000, 16384, PROT_READ) = 0
+mprotect(0x79ba83d09000, 4096, PROT_READ) = 0
+mprotect(0x79ba83df2000, 4096, PROT_READ) = 0
+mprotect(0x79ba83c6c000, 45056, PROT_READ) = 0
+mprotect(0x5b4a6c0e2000, 4096, PROT_READ) = 0
+mprotect(0x79ba83e45000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x79ba83df4000, 74871)           = 0
+futex(0x79ba83c7a7bc, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+getrandom("\x16\x50\x3a\x1b\x86\x7e\x4e\xed", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x5b4a7b96c000
+brk(0x5b4a7b98d000)                     = 0x5b4a7b98d000
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+write(1, "Enter the clusters count: \n", 27) = 27
+fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+read(0, "500\n", 1024)                  = 4
+brk(0x5b4a7b9b7000)                     = 0x5b4a7b9b7000
+mmap(NULL, 200704, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x79ba83ca7000
+brk(0x5b4a7b9a0000)                     = 0x5b4a7b9a0000
+rt_sigaction(SIGRT_1, {sa_handler=0x79ba83699530, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x79ba83645330}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x79ba82dff000
+mprotect(0x79ba82e00000, 8388608, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214396]}, 88) = 214396
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x79ba825fe000
+mprotect(0x79ba825ff000, 8388608, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214397]}, 88) = 214397
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x79ba81dfd000
+mprotect(0x79ba81dfe000, 8388608, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214398]}, 88) = 214398
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x79ba815fc000
+mprotect(0x79ba815fd000, 8388608, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214399]}, 88) = 214399
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214396, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214397, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214413]}, 88) = 214413
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214414]}, 88) = 214414
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214415]}, 88) = 214415
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214416]}, 88) = 214416
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214413, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214414, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214417]}, 88) = 214417
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214418]}, 88) = 214418
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214419]}, 88) = 214419
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214420]}, 88) = 214420
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214417, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214419, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214421]}, 88) = 214421
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214422]}, 88) = 214422
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214423]}, 88) = 214423
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214424]}, 88) = 214424
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214421, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214423, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214425]}, 88) = 214425
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214426]}, 88) = 214426
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214427]}, 88) = 214427
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214428]}, 88) = 214428
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214425, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214426, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214429]}, 88) = 214429
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214430]}, 88) = 214430
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214431]}, 88) = 214431
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214432]}, 88) = 214432
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214429, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214433]}, 88) = 214433
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214434]}, 88) = 214434
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214435]}, 88) = 214435
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214436]}, 88) = 214436
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214433, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214436, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214437]}, 88) = 214437
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214438]}, 88) = 214438
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214439]}, 88) = 214439
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214440]}, 88) = 214440
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214437, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214438, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214441]}, 88) = 214441
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214442]}, 88) = 214442
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214443]}, 88) = 214443
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214444]}, 88) = 214444
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214441, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214442, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214445]}, 88) = 214445
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214446]}, 88) = 214446
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214447]}, 88) = 214447
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214448]}, 88) = 214448
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214445, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214446, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214449]}, 88) = 214449
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214450]}, 88) = 214450
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214451]}, 88) = 214451
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214452]}, 88) = 214452
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214449, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214452, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214453]}, 88) = 214453
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214454]}, 88) = 214454
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214455]}, 88) = 214455
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214456]}, 88) = 214456
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214453, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214455, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214457]}, 88) = 214457
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214458]}, 88) = 214458
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214459]}, 88) = 214459
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214460]}, 88) = 214460
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214457, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214458, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214461]}, 88) = 214461
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214462]}, 88) = 214462
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214463]}, 88) = 214463
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214464]}, 88) = 214464
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214461, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214462, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214463, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214464, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214475]}, 88) = 214475
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214476]}, 88) = 214476
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214477]}, 88) = 214477
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214478]}, 88) = 214478
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214475, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214476, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214479]}, 88) = 214479
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214480]}, 88) = 214480
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214481]}, 88) = 214481
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214482]}, 88) = 214482
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214479, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214480, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214481, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214483]}, 88) = 214483
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214484]}, 88) = 214484
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214485]}, 88) = 214485
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214486]}, 88) = 214486
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214483, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214484, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214485, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214488]}, 88) = 214488
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214489]}, 88) = 214489
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214491]}, 88) = 214491
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214492]}, 88) = 214492
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214488, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214489, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214491, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214504]}, 88) = 214504
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214505]}, 88) = 214505
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214506]}, 88) = 214506
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214507]}, 88) = 214507
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214504, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214505, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214506, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214507, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214508]}, 88) = 214508
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214509]}, 88) = 214509
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214510]}, 88) = 214510
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214511]}, 88) = 214511
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214508, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214509, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214511, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214512]}, 88) = 214512
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214513]}, 88) = 214513
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214514]}, 88) = 214514
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214515]}, 88) = 214515
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214512, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214513, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214515, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214516]}, 88) = 214516
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214517]}, 88) = 214517
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214518]}, 88) = 214518
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214519]}, 88) = 214519
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214516, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214517, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214518, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214519, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214520]}, 88) = 214520
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214521]}, 88) = 214521
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214522]}, 88) = 214522
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214523]}, 88) = 214523
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba835ff990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214520, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214521, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214522, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba81dfc990, parent_tid=0x79ba81dfc990, exit_signal=0, stack=0x79ba815fc000, stack_size=0x7fff80, tls=0x79ba81dfc6c0} => {parent_tid=[214524]}, 88) = 214524
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba825fd990, parent_tid=0x79ba825fd990, exit_signal=0, stack=0x79ba81dfd000, stack_size=0x7fff80, tls=0x79ba825fd6c0} => {parent_tid=[214525]}, 88) = 214525
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba82dfe990, parent_tid=0x79ba82dfe990, exit_signal=0, stack=0x79ba825fe000, stack_size=0x7fff80, tls=0x79ba82dfe6c0} => {parent_tid=[214526]}, 88) = 214526
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x79ba835ff990, parent_tid=0x79ba835ff990, exit_signal=0, stack=0x79ba82dff000, stack_size=0x7fff80, tls=0x79ba835ff6c0} => {parent_tid=[214527]}, 88) = 214527
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x79ba81dfc990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214524, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba825fd990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214525, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+futex(0x79ba82dfe990, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 214526, NULL, FUTEX_BITSET_MATCH_ANY) = 0
+write(1, "Algorithm ended on 24 iterations"..., 33) = 33
+write(1, "Algorithm was done in: 1403 ms\n", 31) = 31
+munmap(0x79ba83ca7000, 200704)          = 0
+lseek(0, -1, SEEK_CUR)                  = -1 ESPIPE (Недопустимая операция смещения)
+exit_group(0)                           = ?
++++ exited with 0 +++
+\end{breakableverbatim}
