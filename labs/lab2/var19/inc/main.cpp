@@ -178,6 +178,11 @@ int main(int argc, char* argv[]) {
         std::cerr << "Error: incorrect number format: too long." << std::endl;
     }
 
+    if (threadsCount > 10000) {
+        std::cerr << "Incorrect threads count." << std::endl;
+        return 1;
+    }
+    
     auto start = std::chrono::steady_clock::now();
     kMeans();
     auto end = std::chrono::steady_clock::now();
