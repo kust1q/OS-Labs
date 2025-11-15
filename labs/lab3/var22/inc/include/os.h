@@ -32,7 +32,6 @@ namespace os {
     void CloseSharedMemory(SharedMemHandle handle);
 
     const int SIGNAL_DATA_READY = 10;
-    const int SIGNAL_TERMINATE = 15;  
     void Signal(int signal, SignalHandle handle);
     void SendSignal(ProcessHandle handle, int signal);
 
