@@ -1,0 +1,151 @@
+\section{Исходная программа}
+\begin{center}
+\lstinputlisting[language=C++,caption=exceptions.h,captionpos=b]{inc/include/exceptions.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=os.h,captionpos=b]{inc/include/os.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=os.cpp,captionpos=b]{inc/src/os.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=child.h,captionpos=b]{inc/include/child.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=child.cpp,captionpos=b]{inc/src/child.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=bin/child.cpp,captionpos=b]{inc/bin/child.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=parent.h,captionpos=b]{inc/include/parent.h}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=parent.cpp,captionpos=b]{inc/src/parent.cpp}
+\end{center}
+
+\begin{center}
+\lstinputlisting[language=C++,caption=main.cpp,captionpos=b]{inc/main.cpp}
+\end{center}
+
+\section{Strace}
+\begin{breakableverbatim}
+execve("./main", ["./main"], 0x7ffe3b957960 /* 75 vars */) = 0
+brk(NULL)                               = 0x60aa3b74c000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7e2ecd275000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (Нет такого файла или каталога)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=71087, ...}) = 0
+mmap(NULL, 71087, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7e2ecd263000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libstdc++.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=2592224, ...}) = 0
+mmap(NULL, 2609472, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7e2ecce00000
+mmap(0x7e2ecce9d000, 1343488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x9d000) = 0x7e2ecce9d000
+mmap(0x7e2eccfe5000, 552960, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e5000) = 0x7e2eccfe5000
+mmap(0x7e2ecd06c000, 57344, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26b000) = 0x7e2ecd06c000
+mmap(0x7e2ecd07a000, 12608, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7e2ecd07a000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=183024, ...}) = 0
+mmap(NULL, 185256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7e2ecd235000
+mmap(0x7e2ecd239000, 147456, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x7e2ecd239000
+mmap(0x7e2ecd25d000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7e2ecd25d000
+mmap(0x7e2ecd261000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2b000) = 0x7e2ecd261000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\220\243\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+fstat(3, {st_mode=S_IFREG|0755, st_size=2125328, ...}) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2170256, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7e2ecca00000
+mmap(0x7e2ecca28000, 1605632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7e2ecca28000
+mmap(0x7e2eccbb0000, 323584, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1b0000) = 0x7e2eccbb0000
+mmap(0x7e2eccbff000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1fe000) = 0x7e2eccbff000
+mmap(0x7e2eccc05000, 52624, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7e2eccc05000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0644, st_size=952616, ...}) = 0
+mmap(NULL, 950296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7e2ecd14c000
+mmap(0x7e2ecd15c000, 520192, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x10000) = 0x7e2ecd15c000
+mmap(0x7e2ecd1db000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8f000) = 0x7e2ecd1db000
+mmap(0x7e2ecd233000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xe7000) = 0x7e2ecd233000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7e2ecd14a000
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7e2ecd147000
+arch_prctl(ARCH_SET_FS, 0x7e2ecd147740) = 0
+set_tid_address(0x7e2ecd147a10)         = 90617
+set_robust_list(0x7e2ecd147a20, 24)     = 0
+rseq(0x7e2ecd148060, 0x20, 0, 0x53053053) = 0
+mprotect(0x7e2eccbff000, 16384, PROT_READ) = 0
+mprotect(0x7e2ecd233000, 4096, PROT_READ) = 0
+mprotect(0x7e2ecd261000, 4096, PROT_READ) = 0
+mprotect(0x7e2ecd06c000, 45056, PROT_READ) = 0
+mprotect(0x60aa0c7e2000, 4096, PROT_READ) = 0
+mprotect(0x7e2ecd2b3000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7e2ecd263000, 71087)           = 0
+futex(0x7e2ecd07a7bc, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+getrandom("\x63\x06\xff\x05\xf4\xa7\x2e\x1d", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x60aa3b74c000
+brk(0x60aa3b76d000)                     = 0x60aa3b76d000
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+getpid()                                = 90617
+write(1, "Parent[90617]: Enter filename fo"..., 41) = 41
+fstat(0, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}) = 0
+read(0, "1.txt\n", 1024)                = 6
+getpid()                                = 90617
+write(1, "Parent[90617]: Enter filename fo"..., 41) = 41
+read(0, "2.txt\n", 1024)                = 6
+openat(AT_FDCWD, "/dev/shm/shm_child1", O_RDWR|O_CREAT|O_NOFOLLOW|O_CLOEXEC, 0666) = 3
+ftruncate(3, 2048)                      = 0
+mmap(NULL, 2048, PROT_READ|PROT_WRITE, MAP_SHARED, 3, 0) = 0x7e2ecd274000
+openat(AT_FDCWD, "/dev/shm/shm_child2", O_RDWR|O_CREAT|O_NOFOLLOW|O_CLOEXEC, 0666) = 4
+ftruncate(4, 2048)                      = 0
+mmap(NULL, 2048, PROT_READ|PROT_WRITE, MAP_SHARED, 4, 0) = 0x7e2ecd273000
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7e2ecd147a10) = 90672
+write(1, "Child1[90672]: process was creat"..., 36) = 36
+clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7e2ecd147a10) = 90673
+write(1, "Child2[90673]: process was creat"..., 36) = 36
+clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0}, 0x7ffd604a08e0) = 0
+wait4(90672, 0x7ffd604a0914, WNOHANG, NULL) = 0
+wait4(90673, 0x7ffd604a0914, WNOHANG, NULL) = 0
+read(0, "aaaaaa\n", 1024)               = 7
+wait4(90672, 0x7ffd604a0924, WNOHANG, NULL) = 0
+wait4(90673, 0x7ffd604a0924, WNOHANG, NULL) = 0
+kill(90672, SIGUSR1)                    = 0
+read(0, "sssssssssss\n", 1024)          = 12
+wait4(90672, 0x7ffd604a0924, WNOHANG, NULL) = 0
+wait4(90673, 0x7ffd604a0924, WNOHANG, NULL) = 0
+kill(90673, SIGUSR1)                    = 0
+read(0, "ffffffffffff\n", 1024)         = 13
+wait4(90672, 0x7ffd604a0924, WNOHANG, NULL) = 0
+wait4(90673, 0x7ffd604a0924, WNOHANG, NULL) = 0
+kill(90672, SIGUSR1)                    = 0
+read(0, "exit\n", 1024)                 = 5
+write(1, "Parent: termination command was "..., 42) = 42
+kill(90672, SIGTERM)                    = 0
+wait4(90672, [{WIFSIGNALED(s) && WTERMSIG(s) == SIGTERM}], 0, NULL) = 90672
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_KILLED, si_pid=90672, si_uid=1000, si_status=SIGTERM, si_utime=0, si_stime=0} ---
+write(1, "Child1: process was terminated.\n", 32) = 32
+kill(90673, SIGTERM)                    = 0
+wait4(90673, [{WIFSIGNALED(s) && WTERMSIG(s) == SIGTERM}], 0, NULL) = 90673
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_KILLED, si_pid=90673, si_uid=1000, si_status=SIGTERM, si_utime=0, si_stime=0} ---
+write(1, "Child2: process was terminated.\n", 32) = 32
+munmap(0x7e2ecd274000, 2048)            = 0
+close(3)                                = 0
+munmap(0x7e2ecd273000, 2048)            = 0
+close(4)                                = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
+\end{breakableverbatim}

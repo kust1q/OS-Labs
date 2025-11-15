@@ -1,0 +1,123 @@
+\section{Метод решения}
+
+Алгоритм решения задачи:
+
+\begin{enumerate}
+\item Пользователь в консоль родительского процесса вводит имена файлов, которые будут использованы для открытия (создания) файлов с таким именем для child1 и child2 соответственно.
+
+\item Создается объект класса Parent, так называемый ``родитель''.
+
+\item Родительский процесс создает два объекта разделяемой памяти для передачи данных между родительским и дочерними процессами.
+
+\item Затем делает fork для создания первого дочернего процесса. Пытается запустить бинарный файл для дочернего процесса и передать аргументы - имя разделяемой памяти и имя файла для записи. Если не получилось — процесс завершается. Аналогично для второго дочернего процесса.
+
+\item Дочерний процесс открывает свою область разделяемой памяти. И пытается открыть (создать) указанный файл в специальной директории. Если не получилось — процесс завершается.
+
+\item Родительский процесс проверяет ``жизнидеятельность'' процессов, если любой из них уже завершен, то программа прекращает работу со статусом ошибки.
+
+\item Родительский процесс считывает пользовательский ввод и отправляет строки данных в соответствующие области разделяемой памяти, затем отправляет сигнал одному из дочерних процессов, уведомляя о наличии данных.
+
+\item Дочерний процесс ожидает сигнал, читает строку из разделяемой памяти, инвертирует её и записывает в соответствующий файл.
+
+\item По команде ``exit'' или ``quit'' родитель останавливает дочерние процессы и программа завершается.
+\end{enumerate}
+
+\vspace{10\baselineskip}
+
+Архитектура программы:
+
+\dirtree{%
+.1 lab1/. 
+.2 bin/. 
+.3 child.cpp.
+.2 build/.
+.2 include/.
+.3 child.h.
+.3 exceptions.h.
+.3 os.h.
+.3 parent.h.
+.2 src/.
+.3 child.cpp.
+.3 os.cpp.
+.3 parent.cpp.
+.2 testfiles/.
+.2 main.cpp.
+}
+
+
+\section{Описание программы}
+
+\texttt{main.cpp} --- точка входа в программу, создается объект класса Parent, обрабатываются исключения.\\
+
+\texttt{bin/child.cpp} --- точка входа в программу для дочернего процесса, создается объект класса Child.\\
+
+\texttt{exceptions.h} --- объявление необходимых исключений.
+\begin{itemize}
+\item \texttt{ChildProcessEndException} --- ошибка внезапного завершения любого из дочерних процессов, программа завершается.
+\end{itemize}
+
+\texttt{os.h} --- объявление функций управления процессами и разделяемой памятью ОС. \\
+\texttt{src/os.cpp} --- реализация.\\
+Основные функции:
+\begin{itemize}
+\item \texttt{ProcessHandle CreateProcess(const ProcessParams\& params);} --- создание дочернего процесса. Используется системный вызов \texttt{fork()} и \texttt{execl()}.
+\item \texttt{void TerminateProcess(ProcessHandle handle);} --- завершение процесса по handle и очистка ресурсов. Используется системный вызов \texttt{kill()} и \texttt{waitpid()}.
+\item \texttt{bool IsAliveProcess(ProcessHandle handle);} --- проверка ``жизнидеятельности'' процесса. Используется системный вызов \texttt{waitpid()} с макросом \texttt{WNOHANG}.
+\item \texttt{int GetChildPid(ProcessHandle handle);} --- получение pid дочернего процесса.
+\item \texttt{SharedMemHandle CreateSharedMemory(const char* name, size\_t size);} --- создание POSIX shared memory объекта. Используется системный вызов \texttt{shm\_open()} и \texttt{ftruncate()}.
+\item \texttt{char* MapSharedMemory(SharedMemHandle handle, size\_t size);} --- отображение shared memory в адресное пространство. Используется системный вызов \texttt{mmap()}.
+\item \texttt{void UnmapSharedMemory(char* ptr, size\_t size);} --- отмена отображения памяти. Используется системный вызов \texttt{munmap()}.
+\item \texttt{void CloseSharedMemory(SharedMemHandle handle);} --- закрытие дескриптора shared memory. Используется системный вызов \texttt{close()}.
+\item \texttt{void SendSignal(ProcessHandle handle, int signal);} --- отправка сигнала дочернему процессу. Используется системный вызов \texttt{kill()}.
+\item \texttt{void Signal(int sig, SignalHandle handle);} --- установка обработчика сигнала. Используется системный вызов \texttt{signal()}.
+\item \texttt{int GetPid();} --- получение pid текущего процесса. Используется системный вызов \texttt{getpid()}.
+\item \texttt{int Pause();} --- ожидание сигнала. Используется системный вызов \texttt{pause()}.
+\item \texttt{void Sleep(int seconds);} --- ожидание. Используется системный вызов \texttt{sleep()}.
+\item \texttt{void Exit(int status);} --- завершение текущего процесса. Используется системный вызов \texttt{\_exit()}.
+\end{itemize}
+
+\vspace{2\baselineskip}
+
+
+\texttt{child.h} --- объявление класса Child. \\
+\texttt{src/child.cpp} --- реализация.\\
+Поля класса:
+\begin{itemize}
+\item \texttt{int pid;} --- pid процесса.
+\item \texttt{std::string filename;} --- название файла для открытия (создания).
+\item \texttt{std::ofstream file;} --- поток для записи в файлы.
+\item \texttt{char* shm\_ptr;} --- указатель на отображённую разделяемую память.
+\item \texttt{size\_t shm\_size;} --- размер разделяемой памяти.
+\item \texttt{std::string shm\_name;} --- имя разделяемой памяти.
+Основные функции \texttt{(методы)}:
+\item \texttt{void Work();} --- ожидает сигнал, читает строку из разделяемой памяти, инвертирует её и записывает в файл.
+\end{itemize}
+Основные функции \texttt{(методы)}:
+\begin{itemize}
+\item \texttt{void Work();} --- ожидает сигнал, читает строку из разделяемой памяти, инвертирует её и записывает в файл.
+\end{itemize}
+
+\vspace{2\baselineskip}
+
+
+\texttt{parent.h} --- объявление класса Parent.\\
+\texttt{src/parent.cpp} --- реализация.\\
+Поля класса:
+\begin{itemize}
+\item \texttt{std::random\_device rd;} --- генератор случайных чисел.
+\item \texttt{ProcessHandle child1;} --- дескриптор 1 дочернего процесса.
+\item \texttt{ProcessHandle child2;} --- дескриптор 2 дочернего процесса.
+\item \texttt{SharedMemHandle shm\_handle1;} --- дескриптор разделяемой памяти для 1 дочернего процесса.
+\item \texttt{SharedMemHandle shm\_handle2;} --- дескриптор разделяемой памяти для 2 дочернего процесса.
+\item \texttt{char* shm\_ptr1;} --- указатель на разделяемую память 1.
+\item \texttt{char* shm\_ptr2;} --- указатель на разделяемую память 2.
+\item \texttt{std::string shm\_name1;} --- имя разделяемой памяти 1.
+\item \texttt{std::string shm\_name2;} --- имя разделяемой памяти 2.
+\item \texttt{const size\_t shm\_size;} --- размер разделяемой памяти.
+\end{itemize}
+Основные функции \texttt{(методы)}:
+\begin{itemize}
+\item \texttt{void CreateChildProcesses(std::string filename1, std::string filename2);} --- создает 2 дочерних процесса и запускает бинарный файл для дочернего процесса, при ошибке дочерний процесс завершается.
+\item \texttt{void Work();} --- получает пользовательский ввод и записывает в одну из областей разделяемой памяти для дочерних процессов по правилу фильтрации, затем отправляет сигнал.
+\item \texttt{void EndChildren();} --- завершает дочерние процессы.
+\end{itemize} 
